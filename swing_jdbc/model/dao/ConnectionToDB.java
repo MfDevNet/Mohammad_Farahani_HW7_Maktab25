@@ -4,10 +4,32 @@ import java.sql.*;
 
 public class ConnectionToDB {
 
-        void conn() throws ClassNotFoundException, SQLException {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/university", "root", "");
-            Statement stmt = conn.createStatement();
-            ResultSet rs;
-        }
+    private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/university";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "";
+
+    private static Connection conn;
+    private static Statement statement;
+    private static ResultSet rs;
+
+    public static Connection getConn() {
+        return conn;
+    }
+
+    public static Statement getStatement() {
+        return statement;
+    }
+
+    public void initConn() throws SQLException {
+
+        conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        statement = conn.createStatement();
+    }
+
+    public void closeConn() throws SQLException {
+
+        statement.close();
+        conn.close();
+    }
 }
