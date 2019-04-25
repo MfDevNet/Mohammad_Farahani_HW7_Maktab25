@@ -20,6 +20,8 @@ public class TreeSetWithInternalMethod {
         System.out.println("Set 2 :" + treeSet2);
         System.out.println("Size Of Set2:" + treeSet2.size());
 
+        union(treeSet1, treeSet2);
+        intersection(treeSet1, treeSet2);
 
     }//end of method main
 
