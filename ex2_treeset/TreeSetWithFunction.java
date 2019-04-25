@@ -1,3 +1,5 @@
+package ex2_treeset;
+
 import java.util.Iterator;
 import java.util.Random;
 import java.util.TreeSet;
