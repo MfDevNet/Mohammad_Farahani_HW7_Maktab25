@@ -22,4 +22,15 @@ public class TreeSetWithInternalMethod {
 
 
     }//end of method main
+
+    // find union items of treeset1 and treeset2 and display
+    //use mehthod addall and remove duplicate with addall
+    static void union(TreeSet<Character> treeSet1, TreeSet<Character> treeSet2) {
+        TreeSet<Character> temp = new TreeSet<>();
+        temp.addAll(treeSet1);
+        temp.addAll(treeSet2);
+        System.out.println(temp);
+        System.out.println("Count of Union : " + temp.size());
+
+    }//end of method union
 }
