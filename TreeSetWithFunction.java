@@ -80,5 +80,5 @@ public class TreeSetWithFunction  {
         System.out.println("}");
         System.out.println("Count of Intersection : " + counter);
     }//end of method intersection
-}//end of class TreeSetTestWithFuncation
+}//end of class TreeSetWithFuncation
 
