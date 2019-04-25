@@ -33,4 +33,14 @@ public class TreeSetWithInternalMethod {
         System.out.println("Count of Union : " + temp.size());
 
     }//end of method union
+
+    // find intersection items of treeset1 and treeset2 and display
+    //use method retainAll  remove unique  item by retainAll
+    static void intersection(TreeSet<Character> treeSet1, TreeSet<Character> treeSet2) {
+        TreeSet<Character> temp = new TreeSet<>(treeSet1);
+        temp.retainAll(treeSet2);
+        System.out.println(temp);
+        System.out.println("Count of Intersection : " + temp.size());
+
+    }//end of method intersection
 }
