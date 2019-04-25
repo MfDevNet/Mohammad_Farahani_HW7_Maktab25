@@ -1,4 +1,4 @@
-package swing_jdbc.model.dao;
+package swing_jdbc.model.Entity;
 
 public class Student {
     private int studentCode;
