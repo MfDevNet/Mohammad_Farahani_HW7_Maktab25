@@ -61,9 +61,24 @@ public class TreeSetWithFunction  {
         System.out.println("Count of Union : " + counter);
     }//end of method union
 
+    //find Intersection from tow TreeSet
     static void intersection(TreeSet<Character> ts1, TreeSet<Character> ts2) {
-
-
+        int counter = 0;
+        Iterator<Character> itr1 = ts1.iterator();
+        System.out.print("Intersection:{");
+        while (itr1.hasNext()) {
+            char charTree1 = itr1.next();
+            Iterator<Character> itr2 = ts2.iterator();
+            while (itr2.hasNext()) {
+                char charTree2 = itr2.next();
+                if (charTree1 == charTree2) {
+                    System.out.print(charTree1 + " ");
+                    counter++;
+                }
+            }
+        }
+        System.out.println("}");
+        System.out.println("Count of Intersection : " + counter);
     }//end of method intersection
 }//end of class TreeSetTestWithFuncation
 
