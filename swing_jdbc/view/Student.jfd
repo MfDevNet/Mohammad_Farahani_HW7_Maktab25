@@ -1,0 +1,26 @@
+JFDML JFormDesigner: "6.0.6.2.195" Java: "1.8.0_202-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:23:p, par l {comp button3:::p::p, comp scrollPane1:::p:496:p}, space :p:35:p}}"
+			"$verticalGroup": "par l {seq l {space :p:54:p, comp scrollPane1:::p:174:p, space :::p, comp button3:::p::p, space ::190:x}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "text"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 475, 25 )
+			"size": new java.awt.Dimension( 570, 490 )
+		} )
+	}
+}
