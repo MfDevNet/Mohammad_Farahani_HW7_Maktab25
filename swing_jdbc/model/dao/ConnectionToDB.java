@@ -13,11 +13,11 @@ public class ConnectionToDB {
     private static Statement statement;
     private static ResultSet rs;
 
-    public static Connection getConn() {
+    public  Connection getConn() {
         return conn;
     }
 
-    public static Statement getStatement() {
+    public  Statement getStatement() {
         return statement;
     }
 
