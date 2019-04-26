@@ -6,13 +6,12 @@ package swing_jdbc.view;
 
 import java.awt.event.*;
 
+import com.sun.org.apache.xpath.internal.axes.OneStepIterator;
 import swing_jdbc.model.Entity.Student;
 import swing_jdbc.model.dao.StudentDaoImp;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -25,11 +24,10 @@ import java.util.List;
  * @author mohammad
  */
 public class StudentsView extends JFrame {
-    TableModel tableModel;
-
     public StudentsView() throws SQLException {
         initComponents();
         setTitle("Student List");
+
         btn2.addActionListener(e -> {
             try {
                 getStudent();
@@ -38,8 +36,9 @@ public class StudentsView extends JFrame {
             }
         });
 
-       
+
     }
+
 
     private void button1ActionPerformed(ActionEvent e) {
         if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
@@ -70,14 +69,18 @@ public class StudentsView extends JFrame {
         init();
     }
 
-    private void table1MouseEntered(MouseEvent e) {
-        table1.getSelectionModel().addListSelectionListener(table1MouseEntered(this));
+
+    private void scrollPane1MouseClicked(MouseEvent e) {
+
     }
 
-    private ListSelectionListener table1MouseEntered(StudentsView studentsView) {
 
-        System.out.println(123);
-        return null;
+    private void btn2ActionPerformed(ActionEvent e) {
+        System.out.println(table1.getValueAt(1, 1));
+        System.out.println(table1.getSelectedRows());
+        System.out.println(table1.getSelectedColumn());
+        System.out.println(table1.getSelectedRow());
+        System.out.println();
     }
 
 
@@ -96,6 +99,27 @@ public class StudentsView extends JFrame {
         button1 = new JButton();
         label4 = new JLabel();
 
+        ListSelectionModel select = table1.getSelectionModel();
+        select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        select.addListSelectionListener(new ListSelectionListener() {
+                                            @Override
+                                            public void valueChanged(ListSelectionEvent e) {
+                                                Student student = new Student();
+                                                int row = table1.getSelectedRow();
+                                                System.out.println(row);
+                                                int studentcode =(int)table1.getValueAt(row, 0);
+                                                String firstname =(String) table1.getValueAt(row, 1);
+                                                String lastname =(String) table1.getValueAt(row, 2);
+                                                student = new Student(studentcode,firstname,  lastname);
+
+                                                System.out.println(student);
+
+                                            }
+
+                                        }
+        );
+
+
         //======== this ========
         addWindowListener(new WindowAdapter() {
             @Override
@@ -107,12 +131,10 @@ public class StudentsView extends JFrame {
 
         //======== scrollPane1 ========
         {
-
-            //---- table1 ----
-            table1.addMouseListener(new MouseAdapter() {
+            scrollPane1.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseEntered(MouseEvent e) {
-                    table1MouseEntered(e);
+                public void mouseClicked(MouseEvent e) {
+                    scrollPane1MouseClicked(e);
                 }
             });
             scrollPane1.setViewportView(table1);
@@ -138,6 +160,7 @@ public class StudentsView extends JFrame {
 
         //---- btn2 ----
         btn2.setText("text");
+        btn2.addActionListener(e -> btn2ActionPerformed(e));
 
         //---- button1 ----
         button1.setText("Add Student");
@@ -149,54 +172,54 @@ public class StudentsView extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(btn2)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(button1))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(label3, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(286, 286, 286)
-                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap())
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(23, 23, 23)
+                                                .addGroup(contentPaneLayout.createParallelGroup()
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(btn2)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button1))
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(label1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(label2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(label3, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(286, 286, 286)
+                                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(28, 28, 28)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label2)
-                        .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label3)
-                        .addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn2)
-                        .addComponent(button1))
-                    .addGap(120, 120, 120)
-                    .addComponent(label4)
-                    .addGap(32, 32, 32))
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(label2)
+                                        .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(label3)
+                                        .addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btn2)
+                                        .addComponent(button1))
+                                .addGap(120, 120, 120)
+                                .addComponent(label4)
+                                .addGap(32, 32, 32))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -260,6 +283,7 @@ public class StudentsView extends JFrame {
             }
             TableModel dm = new DefaultTableModel(o, new String[]{"studentcode", "firstname", "lastname"});
             table1.setModel(dm);
+            dm.addTableModelListener(table1);
         }
     }
 
