@@ -13,21 +13,24 @@ public class ConnectionToDB {
     private static Statement statement;
     private static ResultSet rs;
 
-    public  Connection getConn() {
+    public Connection getConn() {
+
         return conn;
+
     }
 
     public  Statement getStatement() {
         return statement;
     }
 
-    public void initConn() throws SQLException {
+    public  void initConn() throws SQLException {
 
         conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         statement = conn.createStatement();
+
     }
 
-    public void closeConn() throws SQLException {
+    public  void closeConn() throws SQLException {
 
         statement.close();
         conn.close();

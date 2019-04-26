@@ -1,0 +1,61 @@
+JFDML JFormDesigner: "6.0.6.2.195" Java: "1.8.0_202-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {par l {seq {space :p:23:p, par l {seq {comp btn2:::p::p, space :::p, comp button1:::p::p}, seq {comp label1:::p:81:p, space :::p, comp textField1:::p:86:p, space :::p, comp label2:::p:69:p, space :::p, comp textField2:::p:101:p, space :::p, comp label3:::p:69:p, space :::p, comp textField3:::p:101:p}, comp scrollPane1:::p:568:p}}, seq l {space :p:286:p, comp label4:::p:93:p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:::x, comp textField1::b:p::p, comp label2::b:p::p, comp textField2::b:p::p, comp label3::b:p::p, comp textField3::b:p::p}, space :::p, comp scrollPane1:::p:180:p, space u:::p, par b {comp btn2::b:p::p, comp button1::b:p::p}, space :p:120:p, comp label4:::p::p, space :p:32:p}}"
+		} ) {
+			name: "this"
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowActivated", "thisWindowActivated", true ) )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseEntered", "table1MouseEntered", true ) )
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField1"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField1CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField2"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField2CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "StudentCode"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "FirstName"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "LastName"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField3"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField3CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btn2"
+				"text": "text"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Add Student"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "text"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 165, 165 )
+			"size": new java.awt.Dimension( 655, 490 )
+		} )
+	}
+}
