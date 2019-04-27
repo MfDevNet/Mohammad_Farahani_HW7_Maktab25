@@ -4,8 +4,12 @@
 
 package swing_jdbc.view;
 
+import javax.swing.event.*;
 import swing_jdbc.model.Entity.Student;
+import swing_jdbc.model.Entity.Teacher;
 import swing_jdbc.model.dao.StudentDaoImp;
+import swing_jdbc.model.dao.TeacherDAO;
+import swing_jdbc.model.dao.TeacherDaoImp;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -24,11 +28,18 @@ import java.util.List;
 public class StudentsView extends JFrame {
         public StudentsView() {
         initComponents();
-        setTitle("Student List");
+        setTitle("Student And Teacher Management");
 
         btn2.addActionListener(e -> {
             try {
                 getStudent();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        btn5.addActionListener(e -> {
+            try {
+                getTeacher();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -55,6 +66,11 @@ public class StudentsView extends JFrame {
     private void init() {
         try {
             getStudent();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            getTeacher();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -86,34 +102,37 @@ public class StudentsView extends JFrame {
     }
 
     private void button2ActionPerformed(ActionEvent e) {
-        StudentDaoImp dao = new StudentDaoImp();
-        Student student = null;
-        Student studentupdate = null;
-        if (button2.getText().equals("Save")) {
-            try {
-                student = dao.find(textField6.getText(), true);
-                if (student != null) {
-                    studentupdate = new Student(textField6.getText(), textField4.getText(), textField5.getText());
-                    dao.Update(studentupdate);
-                    JOptionPane.showMessageDialog(null, "Update Success");
-                }
 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
+
+        if(checkBox1.isSelected()==true){
+            TeacherDaoImp dao = new TeacherDaoImp();
+            Teacher teacher = null;
+            Teacher teacherupdate = null;
+            if (button2.getText().equals("Save")) {
                 try {
-                    getStudent();
+                    teacher = dao.find(textField6.getText(), true);
+                    if (teacher != null) {
+                        teacherupdate = new Teacher(textField6.getText(), textField4.getText(), textField5.getText());
+                        dao.Update(teacherupdate);
+                        JOptionPane.showMessageDialog(null, "Update Success");
+                    }
+
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                } finally {
+                    try {
+                        getStudent();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                    textField6.setText("");
+                    textField5.setText("");
+                    textField4.setText("");
+                    button2.setText("Edit");
                 }
-                textField6.setText("");
-                textField5.setText("");
-                textField4.setText("");
-                button2.setText("Edit");
-            }
 
-        } else {
-            button2.setText("Save");
+            } else {
+                button2.setText("Save");
 //            ListSelectionModel select = table1.getSelectionModel();
 //            select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //            select.addListSelectionListener(new ListSelectionListener() {
@@ -128,12 +147,65 @@ public class StudentsView extends JFrame {
 //            });
 
 
-            int row = table1.getSelectedRow();
-            if (textField6.getText().equals("")) {
-                textField6.setText((String) table1.getValueAt(row, 0));
-                textField4.setText((String) table1.getValueAt(row, 1));
-                textField5.setText((String) table1.getValueAt(row, 2));
+                int row = table2.getSelectedRow();
+                if (textField6.getText().equals("")) {
+                    textField6.setText((String) table2.getValueAt(row, 0));
+                    textField4.setText((String) table2.getValueAt(row, 1));
+                    textField5.setText((String) table2.getValueAt(row, 2));
+                }
             }
+        }else{
+            StudentDaoImp dao = new StudentDaoImp();
+            Student student = null;
+            Student studentupdate = null;
+            if (button2.getText().equals("Save")) {
+                try {
+                    student = dao.find(textField6.getText(), true);
+                    if (student != null) {
+                        studentupdate = new Student(textField6.getText(), textField4.getText(), textField5.getText());
+                        dao.Update(studentupdate);
+                        JOptionPane.showMessageDialog(null, "Update Success");
+                    }
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } finally {
+                    try {
+                        getStudent();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                    textField6.setText("");
+                    textField5.setText("");
+                    textField4.setText("");
+                    button2.setText("Edit");
+                }
+
+            } else {
+                button2.setText("Save");
+//            ListSelectionModel select = table1.getSelectionModel();
+//            select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//            select.addListSelectionListener(new ListSelectionListener() {
+//                @Override
+//                public void valueChanged(ListSelectionEvent e) {
+//                                                int row = table1.getSelectedRow();
+//                                                String studentcode = (String)table1.getValueAt(row, 0);
+//                                                String firstname = (String) table1.getValueAt(row, 1);
+//                                                String lastname = (String) table1.getValueAt(row, 2);
+//                                                studentshre = new Student(studentcode, firstname, lastname);
+//                }
+//            });
+
+
+                int row = table1.getSelectedRow();
+                if (textField6.getText().equals("")) {
+                    textField6.setText((String) table1.getValueAt(row, 0));
+                    textField4.setText((String) table1.getValueAt(row, 1));
+                    textField5.setText((String) table1.getValueAt(row, 2));
+                }
+            }
+
+
         }
 
 
@@ -177,6 +249,72 @@ public class StudentsView extends JFrame {
         }
     }
 
+    private void btn5ActionPerformed(ActionEvent e) {
+        textField9.setText("");
+        textField8.setText("");
+        textField7.setText("");
+        System.out.println(table2.getValueAt(1, 1));
+        System.out.println(table2.getSelectedRows());
+        System.out.println(table2.getSelectedColumn());
+        System.out.println(table2.getSelectedRow());
+        System.out.println();    }
+
+    private void textField9CaretUpdate(CaretEvent e) {
+        try {
+            getTeacher();
+        } catch (SQLException es) {
+            es.printStackTrace();
+        }
+    }
+
+    private void textField8CaretUpdate(CaretEvent e) {
+        try {
+            getTeacher();
+        } catch (SQLException es) {
+            es.printStackTrace();
+        }
+    }
+
+    private void textField7CaretUpdate(CaretEvent e) {
+        try {
+            getTeacher();
+        } catch (SQLException es) {
+            es.printStackTrace();
+        }    }
+
+        private void button3ActionPerformed(ActionEvent e) {
+            if (textField9.getText().equals("") || textField8.getText().equals("") || textField7.getText().equals(""))
+                JOptionPane.showMessageDialog(null, "Please Enter Full Info");
+            else {
+                TeacherDaoImp dao = new TeacherDaoImp();
+                Teacher teacher = new Teacher(textField9.getText(), textField8.getText(), textField7.getText());
+                try {
+                    dao.insert(teacher);
+                    getStudent();
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        private void btn4ActionPerformed(ActionEvent e) {
+            TeacherDaoImp dao = new TeacherDaoImp();
+            Teacher teacher = null;
+            int row = table2.getSelectedRow();
+            if (row >= 0) {
+                int result = JOptionPane.showConfirmDialog(null, " Delete Teacher \n First Name:" + table2.getValueAt(row, 1) + "\n Last Name :" + table2.getValueAt(row, 2) + "\n Teacher Code : " + table2.getValueAt(row, 0), "Remove Teacher", JOptionPane.YES_NO_OPTION);
+                if (result == 0) {
+                    try {
+                        teacher = dao.find(String.valueOf(table2.getValueAt(row, 0)), true);
+                        if (teacher!=null)dao.delete(teacher.getTeacherCode());
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }        }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - mohammad
@@ -207,6 +345,10 @@ public class StudentsView extends JFrame {
         btn4 = new JButton();
         btn5 = new JButton();
         checkBox1 = new JCheckBox();
+        btn6 = new JButton();
+        btn7 = new JButton();
+        scrollPane3 = new JScrollPane();
+        table3 = new JTable();
 
         //======== this ========
         addWindowListener(new WindowAdapter() {
@@ -248,15 +390,14 @@ public class StudentsView extends JFrame {
 
         //---- btn2 ----
         btn2.setText("Show All Student");
-        btn2.addActionListener(e -> {
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-		});
+        btn2.addActionListener(e -> btn2ActionPerformed(e));
 
         //---- button1 ----
         button1.setText("Add Student");
-        button1.addActionListener(e -> button1ActionPerformed(e));
+        button1.addActionListener(e -> {
+			button1ActionPerformed(e);
+			button1ActionPerformed(e);
+		});
 
         //---- button2 ----
         button2.setText("Edit & Save");
@@ -272,111 +413,126 @@ public class StudentsView extends JFrame {
 
         //---- btn3 ----
         btn3.setText("Delete Student");
-        btn3.addActionListener(e -> {
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn3ActionPerformed(e);
-		});
+        btn3.addActionListener(e -> btn3ActionPerformed(e));
 
         //---- textField7 ----
-        textField7.addCaretListener(e -> textField3CaretUpdate(e));
+        textField7.addCaretListener(e -> textField7CaretUpdate(e));
 
         //---- label4 ----
         label4.setText("LastName");
 
         //---- textField8 ----
-        textField8.addCaretListener(e -> textField2CaretUpdate(e));
+        textField8.addCaretListener(e -> textField8CaretUpdate(e));
 
         //---- label5 ----
         label5.setText("FirstName");
 
         //---- textField9 ----
-        textField9.addCaretListener(e -> textField1CaretUpdate(e));
+        textField9.addCaretListener(e -> textField9CaretUpdate(e));
 
         //---- label6 ----
         label6.setText("TeacherCode");
 
         //---- button3 ----
         button3.setText("Add Teacher");
-        button3.addActionListener(e -> button1ActionPerformed(e));
+        button3.addActionListener(e -> button3ActionPerformed(e));
 
         //---- btn4 ----
         btn4.setText("Delete Teacher");
-        btn4.addActionListener(e -> {
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn3ActionPerformed(e);
-		});
+        btn4.addActionListener(e -> btn4ActionPerformed(e));
 
         //---- btn5 ----
         btn5.setText("Show All Teacher");
-        btn5.addActionListener(e -> {
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-			btn2ActionPerformed(e);
-		});
+        btn5.setPreferredSize(new Dimension(124, 30));
+        btn5.setMaximumSize(new Dimension(124, 30));
+        btn5.setMinimumSize(new Dimension(124, 30));
+        btn5.addActionListener(e -> btn5ActionPerformed(e));
 
         //---- checkBox1 ----
         checkBox1.setText("Teacher Edit");
+
+        //---- btn6 ----
+        btn6.setText("Show Teacher>>Student");
+        btn6.addActionListener(e -> btn2ActionPerformed(e));
+
+        //---- btn7 ----
+        btn7.setText("Show Student>>Teacher");
+        btn7.addActionListener(e -> btn2ActionPerformed(e));
+
+        //======== scrollPane3 ========
+        {
+            scrollPane3.setViewportView(table3);
+        }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(label6, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(textField9, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(label5, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(textField8, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(textField7, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(label3, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(23, 23, 23)
                             .addGroup(contentPaneLayout.createParallelGroup()
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(btn2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(button1)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btn3, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(label6, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(textField9, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(label5, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(textField8, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(label4, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(textField7, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(btn5, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(button3)
+                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btn4, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
-                            .addGap(146, 146, 146)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(textField6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField4, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField5, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(button2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBox1)))
-                        .addComponent(scrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(133, Short.MAX_VALUE))
+                                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(label3, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(btn2)
+                                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                                    .addGap(1, 1, 1)
+                                                    .addComponent(btn5, GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(button3, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                                .addComponent(button1, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(btn3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btn4, GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addComponent(btn6, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btn7, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(28, 28, 28)
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addComponent(textField6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(textField4, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(textField5, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(button2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(checkBox1)))
+                                .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 604, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(13, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -402,31 +558,34 @@ public class StudentsView extends JFrame {
                                 .addComponent(label6)
                                 .addComponent(label5)
                                 .addComponent(label4))))
-                    .addGap(15, 15, 15)
-                    .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
+                    .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+                    .addGap(15, 15, 15)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addComponent(checkBox1)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button2)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textField6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(button2))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(btn2)
                                 .addComponent(button1)
-                                .addComponent(btn3))
+                                .addComponent(btn3)
+                                .addComponent(textField6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(button3)
                                 .addComponent(btn4)
-                                .addComponent(btn5))))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(textField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(textField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(151, 151, 151))
+                                .addComponent(btn5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn6)
+                                .addComponent(btn7)
+                                .addComponent(textField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                    .addGap(18, 18, 18)
+                    .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -460,8 +619,73 @@ public class StudentsView extends JFrame {
             e.printStackTrace();
         }
     }
-    private void getTeacher()throws SQLException{
 
+    private void joinTeacherStudent()throws SQLException{
+               TeacherDaoImp dao = new TeacherDaoImp();
+        List<Teacher> list = new ArrayList<>();
+        Teacher teacher = new Teacher();
+        if (textField9.getText().equals("") && textField8.getText().equals("") && textField7.getText().equals("")) {
+            list = dao.show();
+        } else if (!textField9.getText().equals("") && !textField8.getText().equals("") && !textField7.getText().equals("")) {
+            list = dao.find(textField9.getText(), textField8.getText(), textField7.getText());
+        } else if (!textField8.getText().equals("") && textField7.getText().equals("")) {
+            list = dao.find(null, textField8.getText(), textField7.getText());
+        } else if (textField8.getText().equals("") && !textField7.getText().equals("")) {
+            list = dao.find(null, textField8.getText(), textField7.getText());
+        } else if (!textField1.getText().equals("")) {
+            teacher = dao.find(textField9.getText(), false);
+            if (teacher != null)
+                list.add(new Teacher(teacher.getTeacherCode(), teacher.getFirstName(), teacher.getLastName()));
+
+        }
+        if (list != null) {
+            Object[][] o = new Object[list.size()][4];
+            for (int i = 0; i < list.size(); i++) {
+                o[i][0] = list.get(i).getTeacherCode();
+                o[i][1] = list.get(i).getFirstName();
+                o[i][2] = list.get(i).getLastName();
+
+            }
+            TableModel dm = new DefaultTableModel(o, new String[]{"teachercode", "firstname", "lastname"});
+            table2.setModel(dm);
+            dm.addTableModelListener(table2);
+        }
+
+
+
+    }
+
+    private void getTeacher()throws SQLException{
+        System.out.println(textField9.getText() + " " + textField8.getText() + " " + textField7.getText() + " ");
+        TeacherDaoImp dao = new TeacherDaoImp();
+        List<Teacher> list = new ArrayList<>();
+        Teacher teacher = new Teacher();
+        if (textField9.getText().equals("") && textField8.getText().equals("") && textField7.getText().equals("")) {
+            list = dao.show();
+        } else if (!textField9.getText().equals("") && !textField8.getText().equals("") && !textField7.getText().equals("")) {
+            list = dao.find(textField9.getText(), textField8.getText(), textField7.getText());
+        } else if (!textField8.getText().equals("") && textField7.getText().equals("")) {
+            list = dao.find(null, textField8.getText(), textField7.getText());
+        } else if (textField8.getText().equals("") && !textField7.getText().equals("")) {
+            list = dao.find(null, textField8.getText(), textField7.getText());
+        } else if (!textField1.getText().equals("")) {
+            teacher = dao.find(textField9.getText(), false);
+            if (teacher != null)
+                list.add(new Teacher(teacher.getTeacherCode(), teacher.getFirstName(), teacher.getLastName()));
+
+        }
+        if (list != null) {
+            Object[][] o = new Object[list.size()][4];
+            for (int i = 0; i < list.size(); i++) {
+                o[i][0] = list.get(i).getTeacherCode();
+                o[i][1] = list.get(i).getFirstName();
+                o[i][2] = list.get(i).getLastName();
+
+            }
+            TableModel dm = new DefaultTableModel(o, new String[]{"teachercode", "firstname", "lastname"});
+            table2.setModel(dm);
+            dm.addTableModelListener(table2);
+        }
 
 
 
@@ -528,5 +752,9 @@ public class StudentsView extends JFrame {
     private JButton btn4;
     private JButton btn5;
     private JCheckBox checkBox1;
+    private JButton btn6;
+    private JButton btn7;
+    private JScrollPane scrollPane3;
+    private JTable table3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
