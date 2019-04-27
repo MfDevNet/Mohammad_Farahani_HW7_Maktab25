@@ -126,12 +126,12 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btn6"
 				"text": "Show Teacher>>Student"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn6ActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btn7"
 				"text": "Show Student>>Teacher"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn7ActionPerformed", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane3"

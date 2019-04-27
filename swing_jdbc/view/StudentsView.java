@@ -7,9 +7,11 @@ package swing_jdbc.view;
 import javax.swing.event.*;
 import swing_jdbc.model.Entity.Student;
 import swing_jdbc.model.Entity.Teacher;
+import swing_jdbc.model.Entity.TeacherStudent;
 import swing_jdbc.model.dao.StudentDaoImp;
 import swing_jdbc.model.dao.TeacherDAO;
 import swing_jdbc.model.dao.TeacherDaoImp;
+import swing_jdbc.model.dao.TeacherStudentdaoImp;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -26,6 +28,7 @@ import java.util.List;
  * @author mohammad
  */
 public class StudentsView extends JFrame {
+    private boolean falgTeacherStudent;
         public StudentsView() {
         initComponents();
         setTitle("Student And Teacher Management");
@@ -39,6 +42,7 @@ public class StudentsView extends JFrame {
         });
         btn5.addActionListener(e -> {
             try {
+                getTeacherStudent();
                 getTeacher();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -315,6 +319,36 @@ public class StudentsView extends JFrame {
                 }
             }        }
 
+            private void btn6ActionPerformed(ActionEvent e)  {
+                TeacherStudentdaoImp dao =new TeacherStudentdaoImp();
+                String teacherCode= (String) table2.getValueAt(table2.getSelectedRow(),0);
+
+                try {
+
+                    if(dao.findStudnet(teacherCode,true)!=null){
+                    falgTeacherStudent=true;
+                    getTeacherStudent();}
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+
+            private void btn7ActionPerformed(ActionEvent e) {
+                TeacherStudentdaoImp dao =new TeacherStudentdaoImp();
+                String studentCode= (String) table1.getValueAt(table1.getSelectedRow(),0);
+
+                try {
+                    if (dao.findTeacher(studentCode,true)!=null){
+                    falgTeacherStudent=false;
+                    getTeacherStudent();}
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - mohammad
@@ -453,11 +487,11 @@ public class StudentsView extends JFrame {
 
         //---- btn6 ----
         btn6.setText("Show Teacher>>Student");
-        btn6.addActionListener(e -> btn2ActionPerformed(e));
+        btn6.addActionListener(e -> btn6ActionPerformed(e));
 
         //---- btn7 ----
         btn7.setText("Show Student>>Teacher");
-        btn7.addActionListener(e -> btn2ActionPerformed(e));
+        btn7.addActionListener(e -> btn7ActionPerformed(e));
 
         //======== scrollPane3 ========
         {
@@ -620,35 +654,28 @@ public class StudentsView extends JFrame {
         }
     }
 
-    private void joinTeacherStudent()throws SQLException{
-               TeacherDaoImp dao = new TeacherDaoImp();
-        List<Teacher> list = new ArrayList<>();
-        Teacher teacher = new Teacher();
-        if (textField9.getText().equals("") && textField8.getText().equals("") && textField7.getText().equals("")) {
-            list = dao.show();
-        } else if (!textField9.getText().equals("") && !textField8.getText().equals("") && !textField7.getText().equals("")) {
-            list = dao.find(textField9.getText(), textField8.getText(), textField7.getText());
-        } else if (!textField8.getText().equals("") && textField7.getText().equals("")) {
-            list = dao.find(null, textField8.getText(), textField7.getText());
-        } else if (textField8.getText().equals("") && !textField7.getText().equals("")) {
-            list = dao.find(null, textField8.getText(), textField7.getText());
-        } else if (!textField1.getText().equals("")) {
-            teacher = dao.find(textField9.getText(), false);
-            if (teacher != null)
-                list.add(new Teacher(teacher.getTeacherCode(), teacher.getFirstName(), teacher.getLastName()));
-
+    private void getTeacherStudent()throws SQLException{
+               TeacherStudentdaoImp dao = new TeacherStudentdaoImp();
+        List<TeacherStudent> listteTeacherStudents = new ArrayList<>();
+        TeacherStudent teacherStudent = new TeacherStudent();
+        listteTeacherStudents = dao.show();
+        if (falgTeacherStudent=true){
+            listteTeacherStudents=dao.findStudnet((String) table2.getValueAt(table2.getSelectedRow(),0),true);
+        }else  if(falgTeacherStudent=false){
+            listteTeacherStudents=dao.findTeacher((String) table1.getValueAt(table1.getSelectedRow(),0),true);
         }
-        if (list != null) {
-            Object[][] o = new Object[list.size()][4];
-            for (int i = 0; i < list.size(); i++) {
-                o[i][0] = list.get(i).getTeacherCode();
-                o[i][1] = list.get(i).getFirstName();
-                o[i][2] = list.get(i).getLastName();
+        if (listteTeacherStudents != null) {
+            Object[][] o = new Object[listteTeacherStudents.size()][4];
+            for (int i = 0; i < listteTeacherStudents.size(); i++) {
+                o[i][0] = listteTeacherStudents.get(i).getStudentFirstname();
+                o[i][1] = listteTeacherStudents.get(i).getStudentLastName();
+                o[i][2] = listteTeacherStudents.get(i).getTeacherFirstname();
+                o[i][3] = listteTeacherStudents.get(i).getTeacherLastName();
 
             }
-            TableModel dm = new DefaultTableModel(o, new String[]{"teachercode", "firstname", "lastname"});
-            table2.setModel(dm);
-            dm.addTableModelListener(table2);
+            TableModel dm = new DefaultTableModel(o, new String[]{"stfname", "stlanem", "thfname","thlname"});
+            table3.setModel(dm);
+            dm.addTableModelListener(table3);
         }
 
 
