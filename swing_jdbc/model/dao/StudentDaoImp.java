@@ -27,7 +27,9 @@ public class StudentDaoImp implements StudentDAO {
         connection.initConn();
         int result = 0;
         if (find(StudentCode, true) != null) {
+            connection.initConn();
             String query = "delete from students where studentcode = " + StudentCode;
+            System.out.println(query);
             result = connection.getStatement().executeUpdate(query);
         }
         connection.closeConn();
@@ -39,16 +41,16 @@ public class StudentDaoImp implements StudentDAO {
     public boolean Update(Student student) throws SQLException {
 
         connection.initConn();
-//        ResultSet result = null;
+        int result = 0;
         if (find(student.getStudentCode(), true) != null) {
             String query = "update students set firstname =\'" + student.getFirstName() + "\', lastname =\'" + student.getLastName() + "\' where studentcode = " + student.getStudentCode();
             System.out.println(1);
             System.out.println(query);
             connection.initConn();
-            connection.getStatement().executeUpdate(query);
+            result=connection.getStatement().executeUpdate(query);
         }
         connection.closeConn();
-//        if (result == 1) return true;
+        if (result == 1) return true;
         return false;
     }
 

@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:23:p, par l {seq {comp label1:::p:81:p, space :::p, comp textField1:::p:86:p, space :::p, comp label2:::p:69:p, space :::p, comp textField2:::p:101:p, space :::p, comp label3:::p:69:p, space :::p, comp textField3:::p:101:p}, par t:l {comp scrollPane1::l:p:568:p, seq {par l:::p {seq t {space :0:0:x, par l {comp textField4::t:p:101:p, comp textField5::t:p:101:p}, space :p:273:p}, seq l {par t:::p {comp button2::l::0:x, comp textField6::l::101:x, comp button1::l:p::p}, space :::x}}, comp scrollPane2:::p:200:p}, seq l {comp btn2:::p:100:p, space :::p, comp btn3:::p:100:p}}}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:::x, comp textField1::b:p::p, comp label2::b:p::p, comp textField2::b:p::p, comp label3::b:p::p, comp textField3::b:p::p}, space :::p, comp scrollPane1:::p:180:p, space s:::p, par b {comp btn2::b:p::p, comp btn3::b:p::p}, space :::p, par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp textField6:::p::p, space :p:8:p, comp textField4:::p::p, space u:::p, comp textField5:::p::p}, comp scrollPane2:::p:156:p}, space :p:194:p}}"
+			"$horizontalGroup": "par l {seq l {space :p:23:p, par l {seq {comp label6:::p:81:p, space :6:6:p, comp textField9:::p:86:p, space :6:6:p, comp label5:::p:69:p, space :6:6:p, comp textField8:::p:101:p, space :6:6:p, comp label4:::p:69:p, space :6:6:p, comp textField7:::p:101:p}, seq {comp label1:::p:81:p, space :::p, comp textField1:::p:86:p, space :::p, comp label2:::p:69:p, space :::p, comp textField2:::p:101:p, space :::p, comp label3:::p:69:p, space :::p, comp textField3:::p:101:p}, comp scrollPane1:::p:568:p, seq {par l {seq l {comp btn2:::p:100:p, space :::p, comp button1:::p::p, space :::p, comp btn3:::p:100:p}, seq l {space :p:1:p, comp btn5:::p:100:p, space :::p, comp button3:::p::p, space :::p, comp btn4:::p:100:p}}, space :p:146:p, par l {comp textField6:::p:101:p, comp textField4::l:p:101:p, comp textField5::l:p:101:p, comp button2::l:p:101:p, comp checkBox1:::p::p}}, comp scrollPane2::t:p:568:p}, space ::133:x}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:::x, comp textField1::b:p::p, comp label2::b:p::p, comp textField2::b:p::p, comp label3::b:p::p, comp textField3::b:p::p}, space :::p, comp scrollPane1:::p:120:p, space u:::p, par l {comp textField9:::p::p, comp textField8:::p::p, comp textField7:::p::p, seq l {space :7:7:p, par l {comp label6:::p::p, comp label5:::p::p, comp label4:::p::p}}}, space :p:15:p, comp scrollPane2:::p:102:p, space s:::p, par l {seq {comp checkBox1:::p::p, space :::p, comp button2:::p::p, space :::p, comp textField6:::p::p}, seq {par b {comp btn2::b:p::p, comp button1::b:p::p, comp btn3::b:p::p}, space :::p, par b {comp button3::b:p::p, comp btn4::b:p::p, comp btn5::b:p::p}}}, space :::p, comp textField4:::p::p, space :::p, comp textField5:::p::p, space :p:151:p}}"
 		} ) {
 			name: "this"
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowActivated", "thisWindowActivated", true ) )
@@ -42,7 +42,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btn2"
-				"text": "Show All"
+				"text": "Show All Student"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
@@ -75,13 +75,62 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btn3"
-				"text": "Delete"
+				"text": "Delete Student"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn3ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField7"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField3CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "LastName"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField8"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField2CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "FirstName"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField9"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField1CaretUpdate", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "TeacherCode"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "Add Teacher"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btn4"
+				"text": "Delete Teacher"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn3ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btn5"
+				"text": "Show All Teacher"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 			} )
+			add( new FormComponent( "javax.swing.JCheckBox" ) {
+				name: "checkBox1"
+				"text": "Teacher Edit"
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 20, 0 )
+			"location": new java.awt.Point( 15, 0 )
 			"size": new java.awt.Dimension( 740, 710 )
 		} )
 	}

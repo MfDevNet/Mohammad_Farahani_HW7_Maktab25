@@ -2,12 +2,15 @@ package swing_jdbc.model.dao;
 
 import swing_jdbc.model.Entity.Teacher;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public interface TeacherDAO {
 
-    void insert(Teacher student);
-    boolean delete(int TeacherCode);
-    boolean changeInfo(Teacher student);
+    void insert(Teacher student) throws SQLException;
+    boolean delete(String TeacherCode) throws SQLException;
+    boolean Update(Teacher student) throws SQLException;
 
-    Teacher find(int TeacherCode);
-    Teacher find(String FirstName,String LastName);
+    Teacher find(String TeacherCode,boolean check) throws SQLException;
+    List<Teacher> find(String TeacherCode, String FirstName, String LastName) throws SQLException;
 }
