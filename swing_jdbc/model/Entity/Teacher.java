@@ -1,24 +1,24 @@
 package swing_jdbc.model.Entity;
 
 public class Teacher {
-    private int teacherCode;
+    private String teacherCode;
     private String firstName;
     private String lastName;
 
     public Teacher() {
     }
 
-    public Teacher(int teacherCode, String firstName, String lastName) {
+    public Teacher(String teacherCode, String firstName, String lastName) {
         this.teacherCode = teacherCode;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getTeacherCode() {
+    public String getTeacherCode() {
         return teacherCode;
     }
 
-    public void setTeacherCode(int teacherCode) {
+    public void setTeacherCode(String teacherCode) {
         this.teacherCode = teacherCode;
     }
 

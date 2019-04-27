@@ -4,6 +4,7 @@ import swing_jdbc.model.Entity.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class StudentDaoImp implements StudentDAO {
     @Override
     public void insert(Student student) throws SQLException {
         connection.initConn();
-        String query = "insert into students(studentcode, firstname, lastname)values(" + student.getStudentCode() + ",\'" + student.getFirstName() + "\',\'" + student.getLastName() + "\')";
+        String query = "insert into students(studentcode, firstname, lastname)values(\'" + student.getStudentCode() + "\',\'" + student.getFirstName() + "\',\'" + student.getLastName() + "\')";
         System.out.println(query);
 
 
@@ -22,10 +23,10 @@ public class StudentDaoImp implements StudentDAO {
     }
 
     @Override
-    public boolean delete(int StudentCode) throws SQLException {
+    public boolean delete(String StudentCode) throws SQLException {
         connection.initConn();
         int result = 0;
-        if (find(StudentCode) != null) {
+        if (find(StudentCode, true) != null) {
             String query = "delete from students where studentcode = " + StudentCode;
             result = connection.getStatement().executeUpdate(query);
         }
@@ -35,23 +36,37 @@ public class StudentDaoImp implements StudentDAO {
     }
 
     @Override
-    public boolean changeInfo(Student student) {
+    public boolean Update(Student student) throws SQLException {
 
+        connection.initConn();
+//        ResultSet result = null;
+        if (find(student.getStudentCode(), true) != null) {
+            String query = "update students set firstname =\'" + student.getFirstName() + "\', lastname =\'" + student.getLastName() + "\' where studentcode = " + student.getStudentCode();
+            System.out.println(1);
+            System.out.println(query);
+            connection.initConn();
+            connection.getStatement().executeUpdate(query);
+        }
+        connection.closeConn();
+//        if (result == 1) return true;
         return false;
     }
 
     @Override
-    public Student find(int StudentCode) throws SQLException {
+    public Student find(String StudentCode, boolean check) throws SQLException {
         connection.initConn();
         Student student = null;
-
-//        String query = "select studentcode,firstname,lastname from students where studentcode = " + StudentCode;
-        String query = "select studentcode,firstname,lastname from students where studentcode LIKE '"+ StudentCode+"%'";
+        String query = null;
+        if (check == true) {
+            query = "select studentcode,firstname,lastname from students where studentcode = " + StudentCode;
+        } else {
+            query = "select studentcode,firstname,lastname from students where studentcode like '" + StudentCode + "%'";
+        }
         System.out.println(query);
         ResultSet rs = connection.getStatement().executeQuery(query);
 
         while (rs.next())
-            student = new Student(rs.getInt("studentcode"), rs.getString("firstname"), rs.getString("lastname"));
+            student = new Student(rs.getString("studentcode"), rs.getString("firstname"), rs.getString("lastname"));
 
 
         connection.closeConn();
@@ -59,7 +74,7 @@ public class StudentDaoImp implements StudentDAO {
     }
 
     @Override
-    public List<Student> find(String FirstName, String LastName) throws SQLException {
+    public List<Student> find(String Studentcode, String FirstName, String LastName) throws SQLException {
         connection.initConn();
         List<Student> listStudent = new ArrayList<>();
         String query = null;
@@ -74,7 +89,7 @@ public class StudentDaoImp implements StudentDAO {
         ResultSet rs = connection.getStatement().executeQuery(query);
 
         while (rs.next())
-            listStudent.add(new Student(rs.getInt("studentcode"),
+            listStudent.add(new Student(rs.getString("studentcode"),
                     rs.getString("firstname"), rs.getString("lastname")));
 
 
@@ -90,7 +105,7 @@ public class StudentDaoImp implements StudentDAO {
         ResultSet rs = connection.getStatement().executeQuery(query);
 
         while (rs.next()) {
-            listStudent.add(new Student(rs.getInt("studentcode"),
+            listStudent.add(new Student(rs.getString("studentcode"),
                     rs.getString("firstname"), rs.getString("lastname")));
         }
 

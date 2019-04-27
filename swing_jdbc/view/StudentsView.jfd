@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :p:23:p, par l {seq {comp btn2:::p::p, space :::p, comp button1:::p::p}, seq {comp label1:::p:81:p, space :::p, comp textField1:::p:86:p, space :::p, comp label2:::p:69:p, space :::p, comp textField2:::p:101:p, space :::p, comp label3:::p:69:p, space :::p, comp textField3:::p:101:p}, comp scrollPane1:::p:568:p}}, seq l {space :p:286:p, comp label4:::p:93:p}}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:::x, comp textField1::b:p::p, comp label2::b:p::p, comp textField2::b:p::p, comp label3::b:p::p, comp textField3::b:p::p}, space :::p, comp scrollPane1:::p:180:p, space u:::p, par b {comp btn2::b:p::p, comp button1::b:p::p}, space :p:120:p, comp label4:::p::p, space :p:32:p}}"
+			"$horizontalGroup": "par l {seq l {space :p:23:p, par l {seq {comp label1:::p:81:p, space :::p, comp textField1:::p:86:p, space :::p, comp label2:::p:69:p, space :::p, comp textField2:::p:101:p, space :::p, comp label3:::p:69:p, space :::p, comp textField3:::p:101:p}, par t:l {comp scrollPane1::l:p:568:p, seq {par l:::p {seq t {space :0:0:x, par l {comp textField4::t:p:101:p, comp textField5::t:p:101:p}, space :p:273:p}, seq l {par t:::p {comp button2::l::0:x, comp textField6::l::101:x, comp button1::l:p::p}, space :::x}}, comp scrollPane2:::p:200:p}, seq l {comp btn2:::p:100:p, space :::p, comp btn3:::p:100:p}}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:::x, comp textField1::b:p::p, comp label2::b:p::p, comp textField2::b:p::p, comp label3::b:p::p, comp textField3::b:p::p}, space :::p, comp scrollPane1:::p:180:p, space s:::p, par b {comp btn2::b:p::p, comp btn3::b:p::p}, space :::p, par l {seq {comp button1:::p::p, space :::p, comp button2:::p::p, space :::p, comp textField6:::p::p, space :p:8:p, comp textField4:::p::p, space u:::p, comp textField5:::p::p}, comp scrollPane2:::p:156:p}, space :p:194:p}}"
 		} ) {
 			name: "this"
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowActivated", "thisWindowActivated", true ) )
@@ -42,7 +42,9 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btn2"
-				"text": "text"
+				"text": "Show All"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -50,13 +52,37 @@ new FormModel {
 				"text": "Add Student"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
 			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "text"
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "Edit & Save"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField4"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField5"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField6"
+				"editable": false
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table2"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btn3"
+				"text": "Delete"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btn2ActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 165, 165 )
-			"size": new java.awt.Dimension( 655, 490 )
+			"location": new java.awt.Point( 20, 0 )
+			"size": new java.awt.Dimension( 740, 710 )
 		} )
 	}
 }

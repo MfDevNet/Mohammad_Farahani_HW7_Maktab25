@@ -9,11 +9,11 @@ import java.util.List;
 public interface StudentDAO {
 
     void insert(Student student) throws SQLException;
-    boolean delete(int StudentCode) throws SQLException;
-    boolean changeInfo(Student student);
+    boolean delete(String StudentCode) throws SQLException;
+    boolean Update(Student student) throws SQLException;
 
-    Student find(int StudentCode) throws SQLException;
-    List<Student> find(String FirstName, String LastName) throws SQLException;
+    Student find(String StudentCode,boolean check) throws SQLException;
+    List<Student> find(String StudentCode,String FirstName, String LastName) throws SQLException;
 
 
 
