@@ -1,0 +1,130 @@
+JFDML JFormDesigner: "6.0.6.2.195" Java: "1.8.0_202-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :::p, comp layeredPane1::::372:x, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp layeredPane1::::252:x, space :::p}}"
+		} ) {
+			name: "this"
+			"title": "Login"
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "thisWindowOpened", true ) )
+			add( new FormContainer( "javax.swing.JLayeredPane", new FormLayoutManager( class javax.swing.JLayeredPane ) ) {
+				name: "layeredPane1"
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField1"
+				}, new FormLayoutConstraints( null ) {
+					"location": new java.awt.Point( 25, 240 )
+					"size": new java.awt.Dimension( 152, 30 )
+					"x": 130
+					"y": 55
+					"width": 135
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Email"
+					"visible": false
+				}, new FormLayoutConstraints( null ) {
+					"x": 35
+					"y": 30
+					"width": 60
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "PassWord"
+				}, new FormLayoutConstraints( null ) {
+					"width": 85
+					"height": 16
+					"x": 38
+					"y": 95
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "Login"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( null ) {
+					"x": 135
+					"y": 160
+					"width": 125
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkBox1"
+					"text": "Forget Password"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkBox1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( null ) {
+					"x": 15
+					"y": 205
+					"width": 125
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkBox2"
+					"text": "Register User"
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "checkBox2ItemStateChanged", true ) )
+				}, new FormLayoutConstraints( null ) {
+					"width": 103
+					"height": 18
+					"x": 255
+					"y": 205
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField2"
+					"visible": false
+				}, new FormLayoutConstraints( null ) {
+					"width": 135
+					"x": 130
+					"y": 21
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Re-PassWord"
+					"visible": false
+				}, new FormLayoutConstraints( null ) {
+					"width": 85
+					"height": 16
+					"x": 39
+					"y": 130
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "UserName"
+				}, new FormLayoutConstraints( null ) {
+					"width": 85
+					"height": 16
+					"x": 35
+					"y": 62
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField3"
+					addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "textField3CaretUpdate", true ) )
+				}, new FormLayoutConstraints( null ) {
+					"width": 135
+					"x": 130
+					"y": 90
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField4"
+					"visible": false
+				}, new FormLayoutConstraints( null ) {
+					"width": 135
+					"x": 130
+					"y": 125
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkBox3"
+					"text": "Update/Delete User"
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "checkBox3ItemStateChanged", true ) )
+				}, new FormLayoutConstraints( null ) {
+					"location": new java.awt.Point( 90, 390 )
+					"size": new java.awt.Dimension( 125, 18 )
+					"x": 130
+					"y": 227
+					"width": 145
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 40, 50 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}
