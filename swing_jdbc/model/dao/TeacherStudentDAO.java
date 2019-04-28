@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface TeacherStudentDAO {
     void insert(Student student, Teacher teacher) throws SQLException;
-    boolean delete(String StudentCode,String TeacherCode) throws SQLException;
-    boolean Update(Student student, Teacher teacher) throws SQLException;
+    boolean link(String StudentCode,String TeacherCode) throws SQLException;
+    boolean unlink(String StudentCode,String TeacherCode) throws SQLException;
 
     List<TeacherStudent> findStudnet(String TeacherCode, boolean check) throws SQLException;
     List<TeacherStudent> findTeacher(String StudentCode, boolean check) throws SQLException;

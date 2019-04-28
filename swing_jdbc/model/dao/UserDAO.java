@@ -2,11 +2,13 @@ package swing_jdbc.model.dao;
 
 import swing_jdbc.model.Entity.User;
 
-public interface UserDAO {
-    void insert(User user);
-    boolean delete(int UserCode);
-    boolean changeInfo(User user);
+import java.sql.SQLException;
 
-    User find(String username);
+public interface UserDAO {
+    void insert(User user) throws SQLException;
+    boolean delete(String UserCode) throws SQLException;
+    boolean update(User user) throws SQLException;
+
+    User find(String username) throws SQLException;
 
 }
